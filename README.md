@@ -1,2 +1,2 @@
-# Documentation
-The documentation for Project Framework on Project Zomboid generated with Doxygen.
+# FrameworkZ Documentation
+The documentation for FrameworkZ on Project Zomboid generated with Doxygen.
