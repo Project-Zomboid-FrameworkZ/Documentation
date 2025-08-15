@@ -1,0 +1,158 @@
+# DocZ Quick Start Guide
+
+## What is DocZ?
+
+DocZ is a lightweight Lua documentation generator that parses Doxygen-style comments and generates clean HTML documentation. It's specifically designed for FrameworkZ and Project Zomboid Lua projects.
+
+## Features
+
+✅ **Doxygen-style comment parsing** - Supports `--!` and `---` comment prefixes  
+✅ **Rich tag support** - `@brief`, `@class`, `@module`, `@param`, `@return`, `@field`, `@note`, `@see`  
+✅ **HTML output** - Clean, responsive design with navigation  
+✅ **Zero dependencies** - Pure Lua implementation  
+✅ **Fast processing** - Optimized for large codebases  
+✅ **Project Zomboid ready** - Understands FrameworkZ patterns  
+
+## Quick Start
+
+### Method 1: Using the Batch File (Recommended)
+1. Double-click `Generate_DocZ_Documentation.bat`
+2. Wait for processing to complete
+3. Press 'y' to open the documentation in your browser
+
+### Method 2: Command Line
+```powershell
+# Generate FrameworkZ documentation
+lua .\bin\DocZ.lua -i ..\FrameworkZ\Contents\mods\FrameworkZ\media\lua -o .\output -t "FrameworkZ API"
+
+# Generate test documentation
+lua .\bin\DocZ.lua -i . -o .\test_output -t "Test Documentation"
+```
+
+## Command Line Options
+
+| Option | Description | Required | Example |
+|--------|-------------|----------|---------|
+| `-i, --input` | Input directory to scan | ✅ | `-i ./src` |
+| `-o, --output` | Output directory for HTML | ✅ | `-o ./docs` |
+| `-t, --title` | Documentation title | ❌ | `-t "My API"` |
+| `-h, --help` | Show help | ❌ | `-h` |
+
+## Writing Documentation Comments
+
+### Basic Module Documentation
+```lua
+--! \brief Utility module for FrameworkZ
+--! \class FrameworkZ.Utilities
+--! \note This module provides common utility functions
+FrameworkZ.Utilities = {}
+```
+
+### Function Documentation
+```lua
+--! \brief Copies a table deeply
+--! \param originalTable \table The table to copy
+--! \param shouldCopyMetatable \boolean Whether to copy metatables
+--! \return \table A deep copy of the original table
+--! \note This function handles circular references
+--! \see FrameworkZ.Utilities:ShallowCopy
+function FrameworkZ.Utilities:CopyTable(originalTable, shouldCopyMetatable)
+    -- Implementation here
+end
+```
+
+### Alternative @ Syntax
+```lua
+--- @brief Alternative comment style using --- and @
+--- @param input string The input to process
+--- @param options table Configuration options
+--- @return string The processed result
+function ProcessData(input, options)
+    -- Implementation here  
+end
+```
+
+## Supported Tags
+
+| Tag | Purpose | Example |
+|-----|---------|---------|
+| `@brief` | Short description | `@brief Creates a new timer` |
+| `@class` | Class/type name | `@class FrameworkZ.Timer` |
+| `@module` | Module name | `@module FrameworkZ.Utilities` |
+| `@namespace` | Namespace | `@namespace FrameworkZ` |
+| `@param` | Parameter info | `@param name string The object name` |
+| `@return` | Return value | `@return table The result object` |
+| `@field` | Class field | `@field value number The stored value` |
+| `@note` | Additional notes | `@note This is deprecated` |
+| `@see` | Cross-references | `@see FrameworkZ.Utilities:CopyTable` |
+
+## Output Structure
+
+DocZ generates a complete HTML documentation site:
+
+```
+output/
+├── index.html      # Main entry point with overview
+├── modules.html    # List of all modules/namespaces  
+├── classes.html    # List of all classes and types
+└── functions.html  # Complete function reference
+```
+
+## Tips for Best Results
+
+1. **Use consistent comment style** - Stick to either `--!` or `---` throughout your project
+2. **Document all public functions** - DocZ will include undocumented functions but mark them as such
+3. **Use brief descriptions** - Keep `@brief` tags concise and descriptive
+4. **Include parameter types** - Specify types like `string`, `table`, `number`, `boolean`
+5. **Cross-reference related functions** - Use `@see` tags to link related functionality
+
+## Troubleshooting
+
+### Common Issues
+
+**"lua not found"**
+- Install Lua for Windows or ensure Lua is in your PATH
+- Alternative: Use full path to lua.exe
+
+**"Permission denied"**
+- Run as administrator
+- Check file/directory permissions
+
+**"Input directory not found"**
+- Verify the FrameworkZ path is correct
+- Use absolute paths if needed
+
+**Empty output**
+- Check that `.lua` files contain DocZ-style comments (`--!` or `---`)
+- Verify comment syntax matches examples above
+
+### Getting Help
+
+Use the help command for detailed usage information:
+```powershell
+lua .\bin\DocZ.lua -h
+```
+
+## Example Project Structure
+
+For best results, organize your Lua files with clear module hierarchies:
+
+```
+src/
+├── MyProject/
+│   ├── Core/
+│   │   ├── Foundation.lua
+│   │   └── Utilities.lua
+│   ├── Modules/
+│   │   ├── Characters.lua
+│   │   └── Items.lua
+│   └── Interfaces/
+│       ├── MainMenu.lua
+│       └── Settings.lua
+```
+
+This structure will generate well-organized documentation with clear navigation.
+
+---
+
+**Generated by DocZ v1.0.0** - A lightweight Lua documentation generator for Project Zomboid and FrameworkZ projects.

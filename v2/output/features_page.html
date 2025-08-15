@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrameworkZ API Documentation - Features</title>
+    <style>
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --info-color: #17a2b8;
+    --light-bg: #f8f9fa;
+    --border-color: #e9ecef;
+    --text-color: #333;
+    --text-muted: #6c757d;
+    --sidebar-width: clamp(250px, 20vw, 350px);
+    --toc-width: clamp(200px, 15vw, 300px);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fa;
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
+    color: white;
+    padding: 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+    top: 0;
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-header h1 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.sidebar-header .subtitle {
+    margin: 0.5rem 0 0 0;
+    opacity: 0.8;
+    font-size: 0.85rem;
+}
+
+.sidebar-nav {
+    padding: 1rem 0;
+}
+
+.nav-section {
+    margin-bottom: 1.5rem;
+}
+
+.nav-section-title {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.nav-section-title:hover {
+    color: rgba(255,255,255,0.9);
+    background-color: rgba(255,255,255,0.05);
+}
+
+.nav-section-title .collapse-icon {
+    font-size: 0.8rem;
+    transition: transform 0.2s ease;
+}
+
+.nav-section.collapsed .collapse-icon {
+    transform: rotate(-90deg);
+}
+
+.nav-section.collapsed .nav-links {
+    display: none;
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin: 0;
+}
+
+.nav-links a {
+    display: flex;
+    align-items: center;
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    font-size: 0.9rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+.nav-links a .nav-icon {
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+    font-size: 0.8rem;
+}
+
+.nav-links a .nav-text {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nav-links a:hover {
+    background-color: rgba(255,255,255,0.1);
+    border-left-color: var(--secondary-color);
+    color: white;
+}
+
+.nav-links a.active {
+    background-color: rgba(52, 152, 219, 0.2);
+    border-left-color: var(--secondary-color);
+    color: white;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    margin-right: var(--toc-width);
+    background-color: white;
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+.content-header {
+    background: linear-gradient(135deg, white 0%, var(--light-bg) 100%);
+    padding: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.content-header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    font-weight: 300;
+}
+
+.content-header .breadcrumb {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.content-header .breadcrumb a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.content-header .breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.content {
+    padding: 2rem;
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.class-overview {
+    background: linear-gradient(135deg, var(--light-bg) 0%, white 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.class-overview h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    font-weight: 400;
+}
+
+.class-meta {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+
+.meta-badge {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.meta-badge.module {
+    background-color: var(--success-color);
+}
+
+.meta-badge.namespace {
+    background-color: var(--warning-color);
+}
+
+.section {
+    margin-bottom: 3rem;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.section-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.section-content {
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+/* Enhanced page section styling */
+.section-content h4 {
+    color: var(--primary-color);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.section-content h5 {
+    color: var(--secondary-color);
+    margin: 1rem 0 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.section-content ul, .section-content ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+.section-content li {
+    margin: 0.5rem 0;
+}
+
+.section-content blockquote {
+    background-color: var(--light-bg);
+    border-left: 4px solid var(--secondary-color);
+    margin: 1rem 0;
+    padding: 1rem 1.5rem;
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+.section-header .section-count {
+    margin-left: auto;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.function-card, .method-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s ease;
+}
+
+.function-card:hover, .method-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.function-header {
+    background: linear-gradient(135deg, var(--light-bg) 0%, #f1f3f4 100%);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    min-height: fit-content;
+}
+
+.function-signature {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin: 0;
+    word-break: break-all;
+    flex: 0 1 auto;
+    min-width: 0;
+    margin-right: auto;
+}
+
+.function-badges {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    min-width: fit-content;
+    width: auto;
+}
+
+.function-type {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: fit-content;
+    min-width: fit-content;
+    max-width: fit-content;
+    flex: none;
+    box-sizing: border-box;
+}
+
+.function-type.method {
+    background-color: var(--accent-color);
+}
+
+.function-type.undocumented {
+    background-color: var(--warning-color);
+}
+
+.function-body {
+    padding: 1.5rem;
+}
+
+.function-brief {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.function-description {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+}
+
+.parameters-section, .returns-section {
+    margin: 1.5rem 0;
+}
+
+.parameters-section h4, .returns-section h4 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.param-grid, .return-grid {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.param-item, .return-item {
+    background-color: var(--light-bg);
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 4px solid var(--secondary-color);
+}
+
+.param-header, .return-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.param-name, .return-type {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-weight: 600;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+}
+
+.optional-indicator {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    font-weight: 400;
+    color: #999;
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+.param-type {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    color: var(--success-color);
+    font-size: 0.85rem;
+    background-color: rgba(39, 174, 96, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.return-type {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    color: var(--info-color);
+    font-size: 0.85rem;
+    background-color: rgba(52, 152, 219, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.type-icon {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.param-description, .return-description {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.notes-section, .see-also-section {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border-radius: 6px;
+}
+
+.notes-section {
+    background-color: #fff3cd;
+    border-left: 4px solid var(--warning-color);
+}
+
+.see-also-section {
+    background-color: #d1ecf1;
+    border-left: 4px solid var(--info-color);
+}
+
+.notes-section h4, .see-also-section h4 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.notes-section h4 {
+    color: #856404;
+}
+
+.see-also-section h4 {
+    color: #0c5460;
+}
+
+.toc {
+    background: linear-gradient(135deg, var(--light-bg) 0%, white 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.toc h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.toc-section {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.toc-section h4 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.toc-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-section li {
+    margin: 0.25rem 0;
+}
+
+.toc-section a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: block;
+    padding: 0.25rem 0;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.toc-section a:hover {
+    background-color: var(--light-bg);
+    padding-left: 0.5rem;
+}
+
+.file-path {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    background-color: var(--light-bg);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: inline-block;
+}
+
+.undocumented {
+    opacity: 0.6;
+    font-style: italic;
+}
+
+.undocumented:not(.function-type)::after {
+    content: " (undocumented)";
+    color: var(--warning-color);
+    font-size: 0.8rem;
+}
+
+pre {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    white-space: pre;
+    tab-size: 4;
+    color: #d4d4d4;
+}
+
+/* Syntax highlighting for code blocks - VS Code Dark Theme */
+.token.keyword { color: #569cd6; font-weight: normal; }
+.token.string { color: #ce9178; }
+.token.comment { color: #6a9955; font-style: italic; }
+.token.number { color: #b5cea8; }
+.token.function { color: #dcdcaa; font-weight: normal; }
+.token.operator { color: #d4d4d4; }
+.token.punctuation { color: #d4d4d4; }
+.token.variable { color: #9cdcfe; }
+.token.property { color: #9cdcfe; }
+
+/* Language-specific overrides for Lua */
+.language-lua .token.keyword { color: #569cd6; }
+.language-lua .token.string { color: #ce9178; }
+.language-lua .token.comment { color: #6a9955; font-style: italic; }
+.language-lua .token.number { color: #b5cea8; }
+.language-lua .token.function { color: #dcdcaa; }
+.language-lua .token.operator { color: #d4d4d4; }
+.language-lua .token.punctuation { color: #d4d4d4; }
+.language-lua .token.variable { color: #9cdcfe; }
+
+.language-javascript .token.keyword { color: #569cd6; }
+.language-javascript .token.string { color: #ce9178; }
+.language-javascript .token.comment { color: #6a9955; font-style: italic; }
+.language-javascript .token.number { color: #b5cea8; }
+.language-javascript .token.function { color: #dcdcaa; }
+.language-javascript .token.operator { color: #d4d4d4; }
+
+.language-html .token.tag { color: #569cd6; }
+.language-html .token.attr-name { color: #9cdcfe; }
+.language-html .token.attr-value { color: #ce9178; }
+.language-html .token.punctuation { color: #d4d4d4; }
+
+.language-css .token.property { color: #9cdcfe; }
+.language-css .token.selector { color: #d7ba7d; }
+.language-css .token.string { color: #ce9178; }
+.language-css .token.number { color: #b5cea8; }
+
+code {
+    background-color: var(--light-bg);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+}
+
+/* Code block in pre elements should not have background */
+pre code {
+    background: none;
+    padding: 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, white 0%, var(--light-bg) 100%);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    display: block;
+}
+
+.stat-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .content {
+        padding: 1rem;
+    }
+    
+    .content-header {
+        padding: 1rem;
+    }
+    
+    .toc-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.search-box {
+    margin: 1rem 1.5rem;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.search-input::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    background-color: rgba(255,255,255,0.15);
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Clickable stat cards */
+.stat-card.clickable {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card.clickable:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card.clickable:active {
+    transform: translateY(0);
+}
+
+/* Right sidebar table of contents */
+#toc-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: calc(var(--toc-width) - 40px);
+    height: calc(100vh - 40px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+.page-toc {
+    width: 100%;
+    height: fit-content;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
+}
+
+.page-toc h4 {
+    margin: 0 0 0.75rem 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.page-toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.page-toc li {
+    margin: 0;
+    padding: 0;
+}
+
+.page-toc a {
+    display: block;
+    padding: 0.4rem 0.75rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+.page-toc a:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--info-color);
+    border-left-color: rgba(52, 152, 219, 0.3);
+}
+
+.page-toc a.active {
+    background-color: rgba(52, 152, 219, 0.15);
+    color: var(--info-color);
+    border-left-color: #e74c3c;
+    font-weight: 500;
+}
+
+.page-toc .toc-count {
+    float: right;
+    background: var(--light-bg);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 10px;
+    margin-left: 0.5rem;
+}
+
+.page-toc a.active .toc-count {
+    background: rgba(231, 76, 60, 0.2);
+    color: var(--info-color);
+}
+
+.page-toc .toc-sub-items {
+    margin-left: 1rem;
+    margin-top: 0.25rem;
+    border-left: 2px solid rgba(52, 152, 219, 0.2);
+    padding-left: 0.5rem;
+}
+
+.page-toc .toc-sub-items li {
+    margin: 0;
+}
+
+.page-toc .toc-sub-items a {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-left: none;
+}
+
+.page-toc .toc-sub-items a:hover {
+    color: var(--info-color);
+    background-color: rgba(52, 152, 219, 0.05);
+}
+
+.page-toc .toc-sub-items a.active {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--info-color);
+    font-weight: 500;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1400px) {
+    :root {
+        --sidebar-width: clamp(220px, 18vw, 280px);
+        --toc-width: clamp(180px, 12vw, 250px);
+    }
+}
+
+@media (max-width: 1200px) {
+    :root {
+        --sidebar-width: clamp(200px, 20vw, 260px);
+    }
+    
+    .main-content {
+        margin-right: 0;
+    }
+    
+    #toc-container {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .content {
+        padding: 1rem;
+    }
+    
+    .content-header {
+        padding: 1rem;
+    }
+    
+    .content-header h1 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (min-width: 1600px) {
+    :root {
+        --sidebar-width: min(20vw, 450px);
+        --toc-width: min(22vw, 400px);
+        --content-max-width: min(65vw, 1400px);
+    }
+}
+</style>
+
+</head>
+<body>
+    <div class="layout">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>FrameworkZ API Documentation - Features</h1>
+                <p class="subtitle">Features</p>
+            </div>
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search documentation..." id="searchInput">
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-section" data-section="overview">
+<div class="nav-section-title" onclick="toggleNavSection(this)">Overview<span class="collapse-icon">▼</span></div>
+<ul class="nav-links">
+<li><a href="index.html"><span class="nav-icon">🏠</span><span class="nav-text">Home</span></a></li>
+<li><a href="all-functions.html"><span class="nav-icon">📋</span><span class="nav-text">All Functions</span></a></li>
+</ul>
+</div>
+<div class="nav-section collapsed" data-section="pages">
+<div class="nav-section-title" onclick="toggleNavSection(this)">Pages<span class="collapse-icon">▼</span></div>
+<ul class="nav-links">
+<li><a href="code_examples_page.html"><span class="nav-icon">📄</span><span class="nav-text">Code Examples</span></a></li>
+<li><a href="features_page.html"><span class="nav-icon">📄</span><span class="nav-text">Features</span></a></li>
+<li><a href="global_variables_page.html"><span class="nav-icon">📄</span><span class="nav-text">Global Variables</span></a></li>
+<li><a href="variable_types_page.html"><span class="nav-icon">📄</span><span class="nav-text">Variable Types</span></a></li>
+</ul>
+</div>
+<div class="nav-section collapsed" data-section="cores">
+<div class="nav-section-title" onclick="toggleNavSection(this)">Core Systems<span class="collapse-icon">▼</span></div>
+<ul class="nav-links">
+<li><a href="FrameworkZ_core.html"><span class="nav-icon">⚡</span><span class="nav-text">FrameworkZ</span></a></li>
+<li><a href="FrameworkZ_Foundation_core.html"><span class="nav-icon">⚡</span><span class="nav-text">FrameworkZ.Foundation</span></a></li>
+</ul>
+</div>
+<div class="nav-section collapsed" data-section="classes">
+<div class="nav-section-title" onclick="toggleNavSection(this)">Classes<span class="collapse-icon">▼</span></div>
+<ul class="nav-links">
+<li><a href="CHARACTER.html"><span class="nav-icon">📦</span><span class="nav-text">CHARACTER</span></a></li>
+<li><a href="ENTITY.html"><span class="nav-icon">📦</span><span class="nav-text">ENTITY</span></a></li>
+<li><a href="FACTION.html"><span class="nav-icon">📦</span><span class="nav-text">FACTION</span></a></li>
+<li><a href="INVENTORY.html"><span class="nav-icon">📦</span><span class="nav-text">INVENTORY</span></a></li>
+<li><a href="PLAYER.html"><span class="nav-icon">📦</span><span class="nav-text">PLAYER</span></a></li>
+</ul>
+</div>
+<div class="nav-section collapsed" data-section="libraries">
+<div class="nav-section-title" onclick="toggleNavSection(this)">Libraries<span class="collapse-icon">▼</span></div>
+<ul class="nav-links">
+<li><a href="FrameworkZ_DataManager_library.html"><span class="nav-icon">📚</span><span class="nav-text">FrameworkZ.DataManager</span></a></li>
+<li><a href="FrameworkZ_DollarFormats_library.html"><span class="nav-icon">📚</span><span class="nav-text">FrameworkZ.DollarFormats</span></a></li>
+<li><a href="FrameworkZ_Timers_library.html"><span class="nav-icon">📚</span><span class="nav-text">FrameworkZ.Timers</span></a></li>
+<li><a href="FrameworkZ_Utilities_library.html"><span class="nav-icon">📚</span><span class="nav-text">FrameworkZ.Utilities</span></a></li>
+</ul>
+</div>
+<div class="nav-section collapsed" data-section="modules">
+<div class="nav-section-title" onclick="toggleNavSection(this)">Modules<span class="collapse-icon">▼</span></div>
+<ul class="nav-links">
+<li><a href="FrameworkZ_Characters_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.Characters</span></a></li>
+<li><a href="FrameworkZ_Classes_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.Classes</span></a></li>
+<li><a href="FrameworkZ_Entities_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.Entities</span></a></li>
+<li><a href="FrameworkZ_Factions_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.Factions</span></a></li>
+<li><a href="FrameworkZ_Interfaces_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.Interfaces</span></a></li>
+<li><a href="FrameworkZ_Inventories_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.Inventories</span></a></li>
+<li><a href="FrameworkZ_Items_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.Items</span></a></li>
+<li><a href="FrameworkZ_Logs_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.Logs</span></a></li>
+<li><a href="FrameworkZ_Notifications_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.Notifications</span></a></li>
+<li><a href="FrameworkZ_Players_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.Players</span></a></li>
+<li><a href="FrameworkZ_Plugins_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.Plugins</span></a></li>
+<li><a href="FrameworkZ_Security_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.Security</span></a></li>
+<li><a href="FrameworkZ_SubClasses_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.SubClasses</span></a></li>
+<li><a href="FrameworkZ_Tooltips_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.Tooltips</span></a></li>
+<li><a href="FrameworkZ_UserInterfaces_module.html"><span class="nav-icon">🔧</span><span class="nav-text">FrameworkZ.UserInterfaces</span></a></li>
+</ul>
+</div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="content-header">
+                <h1>FrameworkZ API Documentation - Features</h1>
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a> / Features
+                </div>
+            </div>
+            <div class="content">
+
+<div class="page-toc" id="page-toc">
+<h4>📋 On This Page</h4>
+<ul>
+<li><a href="#page-overview" data-section="page-overview">Overview</a>
+</li>
+<li><a href="#section-CharacterDataManager" data-section="section-CharacterDataManager">Character Data Manager</a>
+</li>
+<li><a href="#section-Characters" data-section="section-Characters">Characters</a>
+</li>
+</ul>
+</div>
+<div class="class-overview" id="page-overview">
+<h2>Features</h2>
+<div class="class-meta">
+<span class="meta-badge">page</span>
+</div>
+<div class="section" id="section-CharacterDataManager">
+<h3>Character Data Manager</h3>
+<div class="section-content">
+<p>Centralized system for managing all character data from creation to spawning.</p>
+<p>Consolidates character appearance, inventory, equipment, and state management</p>
+<p>into a single, coherent system that maintains data integrity throughout</p>
+<p>the character lifecycle.</p>
+</div>
+</div>
+<div class="section" id="section-Characters">
+<h3>Characters</h3>
+<div class="section-content">
+<p>Characters are the main focus of the game. They are the players that interact with the world. Characters can be given a name, description, faction, age, height, eye color, hair color, etc. They can also be given items and equipment.\n\n</p>
+<p>When a player connects to the server, they may create a character and load said character. The character is then saved to the player&#39;s data and can be loaded again when the player reconnects. Characters will be saved automatically at predetermined intervals or upon disconnection or when switching characters.\n\n</p>
+<p>Characters are not given items in the traditional sense. Instead, they are given items by a unique ID from an item defined in the framework&#39;s (or gamemode&#39;s or even plugin&#39;s) files. This special item definition is then used to create an item instance that is added to the character&#39;s inventory. This allows for items to be created dynamically and given to characters. This allows for the same Project Zomboid item to be reused for different purposes.\n\n</p>
+</div>
+</div>
+</div>
+            </div>
+        </div>
+    </div>
+    <div id="toc-container"></div>
+    <script>
+    // Simple search functionality
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const navLinks = document.querySelectorAll('.nav-links a');
+        
+        navLinks.forEach(link => {
+            const text = link.textContent.toLowerCase();
+            const listItem = link.parentElement;
+            
+            if (text.includes(searchTerm)) {
+                listItem.style.display = '';
+            } else {
+                listItem.style.display = 'none';
+            }
+        });
+    });
+    
+    // Sidebar collapse functionality
+    function toggleNavSection(titleElement) {
+        const section = titleElement.parentElement;
+        const sectionName = section.getAttribute('data-section');
+        const isCollapsed = section.classList.contains('collapsed');
+        
+        if (isCollapsed) {
+            section.classList.remove('collapsed');
+            localStorage.setItem('nav-section-' + sectionName, 'expanded');
+        } else {
+            section.classList.add('collapsed');
+            localStorage.setItem('nav-section-' + sectionName, 'collapsed');
+        }
+    }
+    
+    // Restore sidebar states from localStorage
+    function restoreSidebarStates() {
+        document.querySelectorAll('.nav-section[data-section]').forEach(section => {
+            const sectionName = section.getAttribute('data-section');
+            const savedState = localStorage.getItem('nav-section-' + sectionName);
+            
+            if (savedState === 'expanded') {
+                section.classList.remove('collapsed');
+            } else if (savedState === 'collapsed') {
+                section.classList.add('collapsed');
+            }
+            // If no saved state and section has active item, expand it
+            else if (section.querySelector('.nav-links a.active')) {
+                section.classList.remove('collapsed');
+                localStorage.setItem('nav-section-' + sectionName, 'expanded');
+            }
+        });
+    }
+    
+    // Initialize sidebar states when page loads
+    document.addEventListener('DOMContentLoaded', restoreSidebarStates);
+    
+    // Add smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // Add clickable functionality to stat cards
+    document.querySelectorAll('.stat-card.clickable').forEach(card => {
+        card.addEventListener('click', function() {
+            const targetSection = this.getAttribute('data-target');
+            if (targetSection) {
+                const target = document.querySelector(targetSection);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+    });
+    
+    // Table of Contents scroll spy
+    function initTOCScrollSpy() {
+        const toc = document.getElementById('page-toc');
+        const tocContainer = document.getElementById('toc-container');
+        
+        // Move TOC to the grid container if both exist
+        if (toc && tocContainer) {
+            tocContainer.appendChild(toc);
+        }
+        
+        if (!toc) return;
+        
+        const sections = Array.from(document.querySelectorAll('[id*="-section"], .class-overview, .stats-grid, .function-card, .method-card, .param-item')).filter(el => el.id);
+        const tocLinks = Array.from(toc.querySelectorAll('a[data-section], .toc-sub-items a'));
+        
+        if (sections.length === 0 || tocLinks.length === 0) return;
+        
+        function updateActiveTOC() {
+            let currentSection = null;
+            const scrollPos = window.scrollY + 150; // Offset for header
+            
+            // Find the current section
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const section = sections[i];
+                if (section.offsetTop <= scrollPos) {
+                    currentSection = section.id;
+                    break;
+                }
+            }
+            
+            // Update TOC active states
+            let activeLink = null;
+            tocLinks.forEach(link => {
+                const isActive = (link.getAttribute('data-section') === currentSection) || 
+                                (link.getAttribute('href') === `#${currentSection}`);
+                link.classList.toggle('active', isActive);
+                
+                if (isActive) {
+                    activeLink = link;
+                }
+                
+                // If it's a sub-item that's active, also activate the parent section
+                if (isActive && link.closest('.toc-sub-items')) {
+                    const parentLi = link.closest('.toc-sub-items').parentElement;
+                    const parentSection = parentLi?.querySelector('a[data-section]');
+                    if (parentSection) {
+                        parentSection.classList.add('active');
+                    }
+                }
+            });
+            
+            // Auto-scroll TOC to keep active item in view
+            if (activeLink) {
+                const tocContainer = document.getElementById('toc-container');
+                if (tocContainer) {
+                    const containerRect = tocContainer.getBoundingClientRect();
+                    const linkRect = activeLink.getBoundingClientRect();
+                    
+                    // Check if the active link is out of view
+                    if (linkRect.top < containerRect.top || linkRect.bottom > containerRect.bottom) {
+                        const offsetTop = activeLink.offsetTop - tocContainer.offsetTop;
+                        tocContainer.scrollTo({
+                            top: offsetTop - containerRect.height / 2,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }
+        }
+        
+        // Update on scroll
+        let ticking = false;
+        function onScroll() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    updateActiveTOC();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', onScroll);
+        updateActiveTOC(); // Initial call
+        
+        // Smooth scroll on TOC click
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('data-section');
+                const target = document.getElementById(targetId);
+                if (target) {
+                    const offset = 120; // Account for sticky header
+                    const targetPos = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPos,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+    
+    // Initialize TOC when page loads
+    document.addEventListener('DOMContentLoaded', initTOCScrollSpy);
+    </script>
+</body>
+</html>
